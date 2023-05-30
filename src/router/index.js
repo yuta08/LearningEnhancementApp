@@ -5,6 +5,8 @@ import LearningCalender from '../views/LearningCalender.vue'
 import LearningTime from '../views/LearningTime.vue'
 import Login from '../views/LogIn.vue'
 import Signup from '../views/SignUp.vue'
+import Review from '../views/LearningReview.vue'
+
 // import firebase from '@/firebase/firebase'
 
 Vue.use(VueRouter)
@@ -51,6 +53,15 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: Signup
+  },
+
+  {
+    path: '/review',
+    name: 'review',
+    component: Review,
+    meta: {
+      requiresAuth: false
+    }
   }
 ]
 
