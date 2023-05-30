@@ -70,7 +70,7 @@
 <style scoped>
 
 .home {
-  background-image: url("@/assets/front/background_0907.png");
+  background-image: url("~@/assets/front/background_0907.png");
 }
 
 .form-card {
