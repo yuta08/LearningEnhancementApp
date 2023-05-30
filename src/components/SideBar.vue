@@ -1,0 +1,103 @@
+<template>
+  <v-navigation-drawer
+    v-model="drawer"
+    app
+  >
+    <v-sheet
+      color="grey lighten-4"
+      class="pa-4"
+    >
+      <img alt="App logo" class="enhanced_logo" src="@/assets/front/Enhanced_logo.png">
+
+      <div class="username">現在 6 人学習中</div>
+    </v-sheet>
+
+    <v-divider></v-divider>
+
+    <v-list>
+      <v-list-item
+        v-for="[icon, text, to] in links"
+        :key="icon"
+        :to="to"
+        link
+      >
+        <v-list-item-icon>
+          <v-icon>{{ icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ text }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item
+        @click="signout"
+        link>
+        <v-list-item-icon>
+          <v-icon>
+            mdi-logout
+          </v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>
+            Logout
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
+</template>
+
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+nav {
+  padding: 0px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+
+.enhanced_logo {
+  max-width: 150px;
+}
+</style>
+
+<script scoped>
+  import firebase from "@/firebase/firebase"
+  export default {
+    data: () => ({
+      drawer: null,
+      links: [
+        ['mdi-inbox-arrow-down', 'Home', '/'],
+        ['mdi-send', 'Learning', '/learning'],
+        ['mdi-delete', 'Review', '/about'],
+        ['mdi-delete', 'Calender', '/calender'],
+        ['mdi-alert-octagon', 'Sign Out', '/about'],
+      ],
+    }),
+    methods: {
+      signout() {
+        firebase.auth().signOut()
+          .then(() => {
+            this.$router.push('/login')
+          })
+          .catch(error => {
+            // ログアウト失敗時の処理
+            console.log('ログアウトに失敗しました', error)
+          })
+      }
+    }
+  }
+</script>
