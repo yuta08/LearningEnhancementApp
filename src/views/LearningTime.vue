@@ -13,24 +13,24 @@
 						class="ma-2"
 						large
 					>
-						教室
+						{{ this.display_task }}
 					</v-chip>
 					<v-chip
 						class="ma-2"
 						large
 					>
-						カタチにする
+            {{ this.display_activity }}
 					</v-chip>
 					<v-chip
 						class="ma-2"
 						large
 					>
-						授業
+            {{ this.display_space }}
 					</v-chip>
           <br>
 					<v-card-title class="text-h1">
             <v-spacer />
-            10:25
+              {{this.display_time}}{{ this.display_time_h }}:{{ this.display_time_m }}:{{ this.display_time_s }}
             <v-spacer />
           </v-card-title>
 					<v-btn
@@ -134,11 +134,90 @@
   import firebase from "@/firebase/firebase"
 
   export default {
+      beforeCreate(){
+        // usersからデータを取得
+        const db = firebase.firestore();
+        const users_collection = "users"; // 抽出元のコレクション名
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        const users_document = user.uid; // 検索する特定のドキュメントIDを指定
+        db.collection(users_collection)
+          .doc(users_document)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const users_data = doc.data();
+              if (users_data.learning_now){
+                this.display_space = users_data.learning_space
+                this.display_activity = users_data.learning_activity
+                this.display_task = users_data.task_name
+              } else {
+                this.$router.push('/');
+              }
+            } else {
+                console.log("No such document!");
+              }
+            })
+            .catch((error) => {
+              console.error("Error getting document:", error);
+            });
+      },
+      updated(){
+        // 時間を表示
+        const db = firebase.firestore();
+        const users_collection = "users"; // 抽出元のコレクション名
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        const users_document = user.uid; // 検索する特定のドキュメントIDを指定
+        db.collection(users_collection)
+          .doc(users_document)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const users_data = doc.data();
+              if (users_data.learning_now){
+                const now_time = new Date();
+                console.log(now_time.getTime())
+                console.log(users_data.start_time.seconds)
+                this.display_time = now_time.getTime()/1000 - users_data.start_time.seconds;
+                this.display_time = Math.floor(this.display_time);
+                if (this.display_time >= 60){
+                  this.display_time_m = Math.floor(this.display_time / 60)
+                  this.display_time_s = this.display_time % 60
+                  if (this.display_time_m >= 60) {
+                    this.display_time_h = Math.floor(this.display_time_m / 60)
+                    this.display_time_m = this.display_time_m % 60
+                  } else {
+                    this.display_time_h = 0
+                  }
+                } else {
+                  this.display_time_s = 0
+                  this.display_time_m = 0
+                  this.display_time_h = 0
+                }
+                this.display_time = ""
+              } else {
+                this.$router.push('/');
+              }
+            } else {
+                console.log("No such document!");
+              }
+            })
+            .catch((error) => {
+              console.error("Error getting document:", error);
+            });
+      },
       data: () => ({
         satisfactions: ["1", "2", "3", "4", "5"],
         places: ['教室', '研究室', 'フリースペース', '図書室', '飲食店', '自宅', '友人宅'],
         memo: '',
         satisfaction: null,
+        display_space: "",
+        display_activity: "",
+        display_task: "",
+        display_time: "",
+        display_time_h: "",
+        display_time_m: "",
+        display_time_s: "",
+        display_form: "",
       }),
       components: { SideBar },
       methods: {
@@ -175,6 +254,24 @@
                   .add(learning_data)
                   .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
+                    // usersを初期化
+                    const updatedData = {
+                      task_name: "", 
+                      learning_activity: "", 
+                      learning_space: "", 
+                      start_time: "",
+                      learning_now: false
+                    };
+                    db.collection("users") // コレクション名を指定
+                      .doc(users_document) // ドキュメントIDを指定
+                      .update(updatedData)
+                      .then(() => {
+                        console.log("Firestore document updated successfully.");
+                        this.$router.push('/')
+                      })
+                      .catch((error) => {
+                        console.error("Error updating Firestore document:", error);
+                      });
                   })
                   .catch((error) => {
                     console.error("Error adding document: ", error);

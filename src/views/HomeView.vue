@@ -50,7 +50,6 @@
           <br>
           <v-btn
             class="me-4 submit_btn"
-            type="submit"
             :disabled="invalid"
             @click="StartLearning"
           >
@@ -130,11 +129,12 @@
           .update(updatedData)
           .then(() => {
             console.log("Firestore document updated successfully.");
+            this.$router.push('/learning')
           })
           .catch((error) => {
             console.error("Error updating Firestore document:", error);
           });
-        this.$router.push('/learning')
+        
       },
       setCookie(name, value, days) {
         const date = new Date();

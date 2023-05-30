@@ -9,7 +9,7 @@
     >
       <img alt="App logo" class="enhanced_logo" src="@/assets/front/Enhanced_logo.png">
 
-      <div class="username">現在 6 人学習中</div>
+      <div class="username">現在 {{ this.learning_now_count }} 人学習中</div>
     </v-sheet>
 
     <v-divider></v-divider>
@@ -77,7 +77,21 @@ nav {
 <script scoped>
   import firebase from "@/firebase/firebase"
   export default {
+    mounted(){
+      // 現在学習している人の人数を計測する
+      const db = firebase.firestore();
+      const collectionRef = db.collection('users'); // ドキュメントが含まれるコレクションの参照
+
+      collectionRef.where('learning_now', '==', true).get()
+        .then(querySnapshot => {
+          this.learning_now_count = querySnapshot.size;
+        })
+        .catch(error => {
+          console.error('エラー:', error);
+        });
+    },
     data: () => ({
+      learning_now_count: 0,
       drawer: null,
       links: [
         ['mdi-inbox-arrow-down', 'Home', '/'],
