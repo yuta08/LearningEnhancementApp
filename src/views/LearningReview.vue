@@ -2,7 +2,9 @@
     <v-app class="home">
       <SideBar />
       <v-main>
-        
+        <div>
+          <BarChart />
+        </div>
   
       </v-main>
     </v-app>
@@ -21,17 +23,18 @@
   <script>
     import SideBar from "@/components/SideBar.vue";
     // import firebase from "@/firebase/firebase"
+    import BarChart from '@/components/ChartBar.vue';
   
     export default {
       
       data: () => ({
         
       }),
-      components: { SideBar },
+      components: { SideBar ,BarChart,},
       methods: {
         
         
       }
-    }
+    };
   </script>
   
