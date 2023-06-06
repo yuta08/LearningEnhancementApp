@@ -54,6 +54,15 @@
             >
               {{ errorMessage }}
             </v-alert>
+            <v-alert
+            dense
+            text
+            type="info"
+            class="success-message"
+            v-if="signout_message"
+          >
+            {{ signout_message }}
+          </v-alert>
         </v-form>
       </v-card>
     </div>
@@ -114,11 +123,16 @@
       password: '',
       message: '',
       errorMessage: '',
+      signout_message: '',
     }),
     mounted() {
       if(localStorage.message){
         this.message = localStorage.message
         localStorage.message = ''
+      }
+      if(localStorage.signout_message){
+        this.signout_message = localStorage.signout_message
+        localStorage.signout_message = ''
       }
     },
     computed: {
@@ -151,7 +165,7 @@
             refreshToken: result.user.refreshToken
           }
 
-          sessionStorage.setItem('user', JSON.stringify(auth))
+          localStorage.setItem('user', JSON.stringify(auth))
 
           // TOPにリダイレクト処理
           this.$router.push('/')

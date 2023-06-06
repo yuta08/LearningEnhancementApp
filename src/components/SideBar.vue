@@ -7,8 +7,9 @@
       color="grey lighten-4"
       class="pa-4"
     >
+    <a href="/">
       <img alt="App logo" class="enhanced_logo" src="@/assets/front/Enhanced_logo.png">
-
+    </a>
       <div class="username">現在 {{ this.learning_now_count }} 人学習中</div>
     </v-sheet>
 
@@ -39,7 +40,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>
-            Logout
+            <b>Logout</b>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -94,17 +95,17 @@ nav {
       learning_now_count: 0,
       drawer: null,
       links: [
-        ['mdi-inbox-arrow-down', 'Home', '/'],
-        ['mdi-send', 'Learning', '/learning'],
-        ['mdi-delete', 'Review', '/about'],
-        ['mdi-delete', 'Calender', '/calender'],
-        ['mdi-alert-octagon', 'Sign Out', '/about'],
+        ['mdi-home', 'Home', '/'],
+        ['mdi-lead-pencil', 'Learning', '/learning'],
+        ['mdi-chart-bar', 'Review', '/review'],
+        // ['mdi-calendar-month', 'Calender', '/calender'],
       ],
     }),
     methods: {
       signout() {
         firebase.auth().signOut()
           .then(() => {
+            localStorage.signout_message = "サインアウトしました"
             this.$router.push('/login')
           })
           .catch(error => {

@@ -20,6 +20,8 @@
           <v-combobox
             class="form-box"
             id="task_name"
+            :items="items"
+            label="Input Task"
             hide-details
             filled
             outlined
@@ -55,6 +57,7 @@
           >
             学習を開始する
           </v-btn>
+          <div id="writehere" class="after count-time- text"></div>
 
           <!-- <v-btn @click="clear">
             clear
@@ -99,19 +102,43 @@
 
   export default {
     created(){
-      const user = JSON.parse(sessionStorage.getItem('user'))
-      console.log("sessionStrageの内容:", user)
+      const user = JSON.parse(localStorage.getItem('user'))
+      console.log("localStrageの内容:", user)
       console.log("user_id:", user.uid)
+    },
+    mounted(){
+      // プロジェクト・課題の選択肢を取得
+      const db = firebase.firestore();
+      const collectionRef = db.collection('learning_log'); // データを取得するコレクションの参照
+
+      const user = JSON.parse(localStorage.getItem('user'))
+      const user_id = user.uid;
+
+      collectionRef.where('uid', '==', user_id).get()
+        .then(querySnapshot => {
+          const fieldValues = new Set();
+
+          querySnapshot.forEach(doc => {
+            const fieldValue = doc.data().task_name;
+            fieldValues.add(fieldValue);
+          });
+
+          this.items = Array.from(fieldValues);
+        })
+        .catch(error => {
+          console.error('エラー:', error);
+        });
     },
     data: () => ({
       activities: ['問う', '考動する', 'カタチにする', '見つめ直す', '整える', 'その他'],
       places: ['教室', '研究室', 'フリースペース', '図書室', '飲食店', '自宅', '友人宅'],
+      items: [],
     }),
     components: { SideBar },
     methods: {
       StartLearning(){
         const db = firebase.firestore();
-        const user = JSON.parse(sessionStorage.getItem('user'))
+        const user = JSON.parse(localStorage.getItem('user'))
         const documentId = user.uid; // 検索する特定のドキュメントIDを指定
 
         // 更新するデータを取得
@@ -128,7 +155,8 @@
           .doc(documentId) // ドキュメントIDを指定
           .update(updatedData)
           .then(() => {
-            console.log("Firestore document updated successfully.");
+            // console.log("Firestore document updated successfully.");
+            localStorage.start_message = "学習を開始しました"
             this.$router.push('/learning')
           })
           .catch((error) => {
