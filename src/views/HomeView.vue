@@ -6,7 +6,7 @@
         class="form-card"
         elevation="5"
         outlined
-        color="rgb(255, 255, 255, 0.5)"
+        color="rgb(255, 255, 255, 0.9)"
       >
         <v-card-title>
           <v-spacer />
@@ -92,6 +92,17 @@
 
 .submit_btn {
   margin: 0px;
+}
+
+@media screen and (max-width: 480px) {
+	/* 959px以下に適用されるCSS（タブレット用） */
+  .form-card {
+    margin: 80px 20px 80px 20px;
+  }
+  .form-box {
+    margin: 0px 40px 0px 40px;
+    background-color: white;
+  }
 }
 
 </style>

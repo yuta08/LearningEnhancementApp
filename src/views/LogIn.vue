@@ -102,6 +102,15 @@
   margin-top: 20px;
 }
 
+@media screen and (max-width: 480px) {
+	/* 959px以下に適用されるCSS（タブレット用） */
+  .login-box {
+    width: 100%;
+    margin: 0px auto;
+    padding: 30px;
+  }
+}
+
 </style>
 
 <script>

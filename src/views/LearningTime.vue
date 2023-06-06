@@ -6,7 +6,7 @@
           class="form-card"
           elevation="5"
           outlined
-          color="rgb(255, 255, 255, 0.5)"
+          color="rgb(255, 255, 255, 0.9)"
         >
 					<br>
 					<v-chip
@@ -27,9 +27,9 @@
 					>
             {{ this.display_space }}
 					</v-chip>
-          <br>
+          <br><br>
           <div class="count-time">
-            <v-card-title class="text-h1">
+            <v-card-title class="display-time">
               <v-spacer />
                 <div id="writehere" class="after count-time- text">00:00:00</div>
               <v-spacer />
@@ -66,7 +66,7 @@
           class="form-card"
           elevation="5"
           outlined
-          color="rgb(255, 255, 255, 0.5)"
+          color="rgb(255, 255, 255, 0.9)"
         >
           <v-card-title>
             <v-spacer />
@@ -122,7 +122,7 @@
   }
   
   .form-card {
-    margin: 40px 80px 60px 40px;
+    margin: 40px 80px 40px 40px;
     
   }
   
@@ -133,6 +133,26 @@
   .form-box {
     margin: 0px 80px 0px 80px;
     background-color: white;
+  }
+
+  .display-time {
+    font-size: 80px;
+  }
+
+  @media screen and (max-width: 480px) {
+    /* 959px以下に適用されるCSS（タブレット用） */
+    .form-card {
+      margin: 40px 20px 40px 20px;
+    }
+
+    .display-time {
+      font-size: 60px;
+    }
+
+    .form-box {
+      margin: 0px 20px 0px 20px;
+      background-color: white;
+    }
   }
   
   </style>
@@ -397,7 +417,7 @@
                         console.log("Firestore document updated successfully.");
                         this.judge_learning = false
                         clearInterval(this.CalcTime)
-                        this.$router.push('/')
+                        this.$router.push('/review')
                       })
                       .catch((error) => {
                         console.error("Error updating Firestore document:", error);

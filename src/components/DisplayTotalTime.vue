@@ -1,9 +1,31 @@
 <template>
   <div>
-    <h1>今週の合計時間</h1>
-    <v-card-title class="text-h1"><v-spacer />{{ formattedDuration }}<v-spacer /></v-card-title>
+    <v-card-title class="display-title"><v-spacer />今週の合計時間<v-spacer /></v-card-title>
+    <v-card-title class="display-time"><v-spacer />{{ formattedDuration }}<v-spacer /></v-card-title>
   </div>
 </template>
+
+<style>
+
+.display-time {
+  font-size: 80px;
+}
+
+.display-title {
+  font-size: 25px;
+}
+
+@media screen and (max-width: 480px) {
+  .display-time {
+    font-size: 60px;
+  }
+
+  .display-title {
+    font-size: 20px;
+  }
+}
+
+</style>
 
 <script>
 import firebase from "@/firebase/firebase"

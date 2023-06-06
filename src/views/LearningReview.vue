@@ -68,13 +68,23 @@
   
   .form-card {
     margin: 40px 80px 60px 40px;
-    
   }
 
   .graph_area {
     margin: 40px;
   }
   
+  @media screen and (max-width: 480px) {
+    /* 959px以下に適用されるCSS（タブレット用） */
+    .form-card {
+      margin: 40px 20px 60px 20px;
+    }
+
+    .graph_area {
+      margin: 10px;
+    }
+  }
+
   </style>
   
   <script>
