@@ -78,6 +78,11 @@ nav {
 <script scoped>
   import firebase from "@/firebase/firebase"
   export default {
+    created(){
+      if(!JSON.parse(localStorage.getItem('user'))){
+        this.$router.push('/login')
+      }
+    },
     mounted(){
       // 現在学習している人の人数を計測する
       const db = firebase.firestore();
@@ -105,6 +110,7 @@ nav {
       signout() {
         firebase.auth().signOut()
           .then(() => {
+            localStorage.removeItem('user')
             localStorage.signout_message = "サインアウトしました"
             this.$router.push('/login')
           })
