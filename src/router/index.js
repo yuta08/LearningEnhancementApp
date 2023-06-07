@@ -1,21 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import HomeView_mobile from '../views/HomeView_mobile.vue'
 import LearningCalender from '../views/LearningCalender.vue'
 import LearningTime from '../views/LearningTime.vue'
+import LearningTime_mobile from '../views/LearningTime_mobile.vue'
 import Login from '../views/LogIn.vue'
 import Signup from '../views/SignUp.vue'
 import Review from '../views/LearningReview.vue'
+import Review_mobile from '../views/LearningReview_mobile.vue'
 
 // import firebase from '@/firebase/firebase'
 
 Vue.use(VueRouter)
 
+function isMobileDevice() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod|android/.test(userAgent);
+}
+
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: isMobileDevice() ? HomeView_mobile : HomeView,
     meta: {
       requiresAuth: false
     }
@@ -23,7 +31,7 @@ const routes = [
   {
     path: '/learning',
     name: 'leaning',
-    component: LearningTime,
+    component: isMobileDevice() ? LearningTime_mobile : LearningTime,
     meta: {
       requiresAuth: true
     }
@@ -58,7 +66,7 @@ const routes = [
   {
     path: '/review',
     name: 'review',
-    component: Review,
+    component: isMobileDevice() ? Review_mobile : Review,
     meta: {
       requiresAuth: false
     }

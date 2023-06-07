@@ -103,7 +103,7 @@ nav {
         ['mdi-home', 'Home', '/'],
         ['mdi-lead-pencil', 'Learning', '/learning'],
         ['mdi-chart-bar', 'Review', '/review'],
-        // ['mdi-calendar-month', 'Calender', '/calender'],
+        ['mdi-calendar-month', 'Calender', '/calender'],
       ],
     }),
     methods: {
