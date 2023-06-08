@@ -9,6 +9,8 @@ import Login from '../views/LogIn.vue'
 import Signup from '../views/SignUp.vue'
 import Review from '../views/LearningReview.vue'
 import Review_mobile from '../views/LearningReview_mobile.vue'
+import Log from '../views/LearningLog.vue'
+
 
 // import firebase from '@/firebase/firebase'
 
@@ -62,11 +64,18 @@ const routes = [
     name: 'signup',
     component: Signup
   },
-
   {
     path: '/review',
     name: 'review',
     component: isMobileDevice() ? Review_mobile : Review,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/log',
+    name: 'log',
+    component: Log,
     meta: {
       requiresAuth: false
     }

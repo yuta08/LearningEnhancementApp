@@ -88,7 +88,7 @@
   </style>
   
   <script>
-    import SideBar from "@/components/SideBar.vue";
+    import SideBar from "@/components/SideBar_new.vue";
     // import firebase from "@/firebase/firebase"
     import BarChart from '@/components/ChartBar.vue';
     import DisplayTotalTime from "@/components/DisplayTotalTime.vue";

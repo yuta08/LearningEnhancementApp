@@ -158,7 +158,7 @@
   </style>
   
   <script>
-  import SideBar from "@/components/SideBar.vue";
+  import SideBar from "@/components/SideBar_new.vue";
   import firebase from "@/firebase/firebase"
 
   export default {

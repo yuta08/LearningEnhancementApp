@@ -102,6 +102,7 @@ nav {
       links: [
         ['mdi-home', 'Home', '/'],
         ['mdi-lead-pencil', 'Learning', '/learning'],
+        ['mdi-calendar-month', 'Log', '/log'],
         ['mdi-chart-bar', 'Review', '/review'],
         ['mdi-calendar-month', 'Calender', '/calender'],
       ],
