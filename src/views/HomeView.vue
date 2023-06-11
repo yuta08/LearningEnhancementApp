@@ -110,6 +110,7 @@
 <script>
   import SideBar from "@/components/SideBar.vue";
   import firebase from "@/firebase/firebase"
+  import Push from 'push.js';
 
   export default {
     created(){
@@ -118,6 +119,7 @@
       console.log("user_id:", user.uid)
     },
     mounted(){
+      Push.create('これはテストです')
       // プロジェクト・課題の選択肢を取得
       const db = firebase.firestore();
       const collectionRef = db.collection('learning_log'); // データを取得するコレクションの参照

@@ -104,6 +104,7 @@ export default {
         .then(querySnapshot => {
           const documents = [];
           querySnapshot.forEach(doc => {
+            // doc.task_name = "テステス"
             documents.push({ id: doc.id, ...doc.data() });
           });
           this.documents = documents;

@@ -116,6 +116,8 @@
 <script>
   import firebase from "@/firebase/firebase"
 
+
+
   export default {
     data: () => ({
       valid: true,
