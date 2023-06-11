@@ -109,8 +109,7 @@
 
 <script>
   import SideBar from "@/components/SideBar.vue";
-  import firebase from "@/firebase/firebase"
-  import Push from 'push.js';
+  import firebase from "@/firebase/firebase";
 
   export default {
     created(){
@@ -119,7 +118,27 @@
       console.log("user_id:", user.uid)
     },
     mounted(){
-      Push.create('これはテストです')
+      // プッシュ通知
+      const messaging = firebase.messaging();
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          // 通知を許可した場合
+          console.log('Notification permission granted.');
+
+          messaging.getToken().then((currentToken) => {
+            if (currentToken) {
+              // トークン取得成功
+              console.log("currentToken:");
+              console.log(currentToken);
+            } else {
+              // トークン取得失敗
+            }
+          });
+        } else {
+          // 通知を拒否した場合
+          console.log('Unable to get permission to notify.');
+        }
+      });
       // プロジェクト・課題の選択肢を取得
       const db = firebase.firestore();
       const collectionRef = db.collection('learning_log'); // データを取得するコレクションの参照
