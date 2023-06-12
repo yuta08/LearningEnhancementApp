@@ -216,7 +216,7 @@
       methods: {
         learning_time(){
           // 時間を表示
-          this.CalcTime = setInterval(function(){
+          // this.CalcTime = setInterval(function(){
             const db = firebase.firestore();
             const users_collection = "users"; // 抽出元のコレクション名
             const user = JSON.parse(localStorage.getItem('user'))
@@ -232,6 +232,7 @@
                     // console.log(users_data.start_time.seconds)
                     // this.display_time = now_time.getTime()/1000 - users_data.start_time.seconds;
                     // this.CalcTime = setInterval(function(){
+                    this.CalcTime = setInterval(function(){
                       if(!this.judge_learning){
                         this.display_time_h = "user"
                         // var date_2 = new Date();
@@ -287,6 +288,7 @@
                         var writehere = document.getElementById("writehere");
                         writehere.innerHTML=this.display_time_h+ ":"+ this.display_time_m+ ":"+ this.display_time_s;
                       }
+                    } ,1000);
                       // var Myelement_1 = document.getElementById("st1");
                       // var Myelement_2 = document.getElementById("st");
                       // Myelement_1.value = hours+","+minutes+","+seconds;
@@ -324,7 +326,7 @@
                 .catch((error) => {
                   console.error("Error getting document:", error);
                 });
-              } ,1000);
+              
           // this.learning_time()
           // var date_1 = new Date('{{ dt_start }}');
           // var hours = 0;
