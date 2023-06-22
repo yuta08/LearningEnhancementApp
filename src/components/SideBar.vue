@@ -1,6 +1,8 @@
 <template>
+  <div>
   <v-navigation-drawer
     v-model="drawer"
+    permanent
     app
   >
     <v-sheet
@@ -46,6 +48,7 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
+</div>
 </template>
 
 <style lang="scss">
@@ -104,7 +107,7 @@ nav {
         ['mdi-lead-pencil', 'Learning', '/learning'],
         ['mdi-calendar-month', 'Log', '/log'],
         ['mdi-chart-bar', 'Review', '/review'],
-        ['mdi-calendar-month', 'Calender', '/calender'],
+        // ['mdi-calendar-month', 'Calender', '/calender'],
       ],
     }),
     methods: {
