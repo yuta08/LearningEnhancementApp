@@ -167,6 +167,7 @@
           .update(updatedData)
           .then(() => {
             // console.log("Firestore document updated successfully.");
+            clearInterval(this.CalcTime);
             localStorage.start_message = "学習を開始しました"
             this.$router.push('/learning')
           })

@@ -31,7 +31,7 @@
           <div class="count-time">
             <v-card-title class="display-time">
               <v-spacer />
-                <div id="writehere" class="after count-time- text">00:00:00</div>
+                <div id="write_here" class="after count-time- text">00:00:00</div>
               <v-spacer />
             </v-card-title>
           </div> 
@@ -178,7 +178,6 @@
                 this.display_space = users_data.learning_space
                 this.display_activity = users_data.learning_activity
                 this.display_task = users_data.task_name
-                console.log("ccccc")
               } else {
                 this.$router.push('/');
               }
@@ -192,6 +191,15 @@
       },
       updated(){
         this.learning_time()
+      },
+      beforeUnmount() {
+        clearInterval(this.CalcTime);
+      },
+      beforeRouteLeave(to, from, next) {
+        // コンポーネントが別のルートに遷移する前に実行される処理を記述する
+        this.judge_learning = false
+        clearInterval(this.CalcTime);
+        next();
       },
       data() {
         return{
@@ -232,20 +240,18 @@
                     // console.log(users_data.start_time.seconds)
                     // this.display_time = now_time.getTime()/1000 - users_data.start_time.seconds;
                     // this.CalcTime = setInterval(function(){
-                    this.CalcTime = setInterval(function(){
-                      if(!this.judge_learning){
+                    let CalcTime = setInterval(() => {
+                      if(this.judge_learning){
                         this.display_time_h = "user"
                         // var date_2 = new Date();
                         const now_time = new Date();
                         var diff = now_time.getTime()/1000 - users_data.start_time.seconds;
                         diff = Math.trunc(diff);
                         // diff = diff - this.discount_time;
-                        console.log("before_2", diff)
                         var time_h = 0
                         var time_m = 0
                         var time_s = 0
                         if (diff >= 60){
-                          console.log("all", diff)
                           time_m = Math.trunc(diff / 60);
                           // console.log("m:", this.display_time_m)
                           time_s = diff % 60;
@@ -285,8 +291,10 @@
                         console.log(this.display_time_h, ":", this.display_time_m, ":", this.display_time_s)
                         
                         // this.learning_time()
-                        var writehere = document.getElementById("writehere");
+                        var writehere = document.getElementById("write_here");
                         writehere.innerHTML=this.display_time_h+ ":"+ this.display_time_m+ ":"+ this.display_time_s;
+                      } else {
+                        clearInterval(CalcTime);
                       }
                     } ,1000);
                       // var Myelement_1 = document.getElementById("st1");
@@ -417,7 +425,9 @@
                       .update(updatedData)
                       .then(() => {
                         console.log("Firestore document updated successfully.");
+                        console.log("bf", this.judge_learning)
                         this.judge_learning = false
+                        console.log("af", this.judge_learning)
                         clearInterval(this.CalcTime)
                         this.$router.push('/review')
                       })
