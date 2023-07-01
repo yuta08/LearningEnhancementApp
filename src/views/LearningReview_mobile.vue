@@ -51,8 +51,45 @@
           outlined
           color="rgb(255, 255, 255, 0.9)"
         >
+        <v-card-title><v-spacer />今週の学習時間<v-spacer /></v-card-title>
           <div class="graph_area">
             <BarChart />
+          </div>
+        </v-card>
+        <v-card
+          class="form-card"
+          elevation="5"
+          outlined
+          color="rgb(255, 255, 255, 0.9)"
+        >
+          <v-card-title><v-spacer />今週の学習内容<v-spacer /></v-card-title>
+          <div>
+            <div class="chart">
+              <v-card-title style="padding: 0;"><v-spacer />ユーザの学習内容<v-spacer /></v-card-title>
+              <PieChartSelf/>
+            </div>
+            <div class="chart">
+              <v-card-title style="padding: 0;"><v-spacer />みんなの学習内容<v-spacer /></v-card-title>
+              <PieChartTeam/>
+            </div>
+          </div>
+        </v-card>
+        <v-card
+          class="form-card"
+          elevation="5"
+          outlined
+          color="rgb(255, 255, 255, 0.9)"
+        >
+          <v-card-title><v-spacer />今週の学習場所<v-spacer /></v-card-title>
+          <div>
+            <div class="chart">
+              <v-card-title style="padding: 0;"><v-spacer />ユーザの学習場所<v-spacer /></v-card-title>
+              <PieSpaceSelf/>
+            </div>
+            <div class="chart">
+              <v-card-title style="padding: 0;"><v-spacer />みんなの学習場所<v-spacer /></v-card-title>
+              <PieSpaceTeam/>
+            </div>
           </div>
         </v-card>
   
@@ -91,6 +128,10 @@
     import SideBar from "@/components/SideBar_new.vue";
     // import firebase from "@/firebase/firebase"
     import BarChart from '@/components/ChartBar.vue';
+    import PieChartSelf from '@/components/PieActivity_self.vue';
+    import PieChartTeam from '@/components/PieActivity_team.vue';
+    import PieSpaceSelf from '@/components/PieSpace_self.vue';
+    import PieSpaceTeam from '@/components/PieSpace_team.vue';
     import DisplayTotalTime from "@/components/DisplayTotalTime.vue";
   
     export default {
@@ -100,7 +141,7 @@
       data: () => ({
         
       }),
-      components: { SideBar ,BarChart, DisplayTotalTime, },
+      components: { SideBar ,BarChart, DisplayTotalTime, PieChartSelf, PieChartTeam, PieSpaceSelf, PieSpaceTeam },
       methods: {
         
       }

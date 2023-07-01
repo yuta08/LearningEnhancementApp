@@ -1,5 +1,3 @@
-
-
 <script>
 import { Bar, mixins } from 'vue-chartjs';
 import firebase from "@/firebase/firebase";
