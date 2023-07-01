@@ -27,9 +27,7 @@
             outlined
             solo
           ></v-combobox>
-          <v-card-subtitle>
-            活動内容
-          </v-card-subtitle>
+          <ActivityHelp/>
           <v-select
             class="form-box"
             v-model="selectedActivity"
@@ -110,6 +108,7 @@
 <script>
   import SideBar from "@/components/SideBar.vue";
   import firebase from "@/firebase/firebase";
+  import ActivityHelp from "@/components/ActivityHelp.vue";
 
   export default {
     created(){
@@ -145,7 +144,7 @@
       places: ['教室', '研究室', 'フリースペース', '図書室', '飲食店', '自宅', '友人宅'],
       items: [],
     }),
-    components: { SideBar },
+    components: { SideBar, ActivityHelp },
     methods: {
       StartLearning(){
         const db = firebase.firestore();
