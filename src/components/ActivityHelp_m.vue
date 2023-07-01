@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .activity_help {
   max-width: 200px;
   margin: 50px;
